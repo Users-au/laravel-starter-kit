@@ -26,34 +26,28 @@ A Laravel starter kit with Usersau OAuth integration, built with traditional Bla
    cd laravel-usersau-starter-kit
    ```
 
-2. **Install PHP dependencies**
+### Manual installation steps:
+
+1. **Install PHP dependencies**
    ```bash
    composer install
    ```
 
-3. **Install Node.js dependencies**
+1. **Install Node.js dependencies**
    ```bash
    npm install
+   npm run build
+   # or for development
+   npm run dev
    ```
-
-4. **Environment setup**
+   
+1. **Environment setup**
    ```bash
    cp env.example .env
    php artisan key:generate
    ```
-
-5. **Configure your database**
-   Update your `.env` file with database credentials:
-   ```env
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=your_database_name
-   DB_USERNAME=your_username
-   DB_PASSWORD=your_password
-   ```
-
-6. **Configure Usersau OAuth**
+   
+### Configure Usersau OAuth
    Update your `.env` file with Usersau credentials:
    ```env
    USERSAU_CLIENT_ID=your_client_id
@@ -62,19 +56,24 @@ A Laravel starter kit with Usersau OAuth integration, built with traditional Bla
    USERSAU_HOST=https://usersau.com
    ```
 
-7. **Run database migrations**
+1. **Set up the database**
+   - Create a new database in MySQL
+   - Update your `.env` file with the database connection details:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=laravel
+   DB_USERNAME=root
+   DB_PASSWORD=   
+   ```
+
+1. **Run database migrations**
    ```bash
    php artisan migrate
    ```
 
-8. **Build assets**
-   ```bash
-   npm run build
-   # or for development
-   npm run dev
-   ```
-
-9. **Start the development server**
+1. **Start the development server**
    ```bash
    php artisan serve
    ```
@@ -83,10 +82,10 @@ A Laravel starter kit with Usersau OAuth integration, built with traditional Bla
 
 ### 1. Register Your Application
 
-1. Go to [Usersau Developer Console](https://usersau.com/developers)
-2. Create a new OAuth application
-3. Set the redirect URI to: `http://localhost:8000/auth/usersau/callback`
-4. Note down your Client ID and Client Secret
+1. Go to [Usersau Developer Console](https://my.users.au)
+1. Go to / Create a new Project and go to Integration > OAuth Management
+1. Create a new OAuth application, fill in the redirect URI as: `http://localhost:8000/auth/usersau/callback`
+1. View your application details and **copy the Client ID and Client Secret**. 
 
 ### 2. Configure Environment Variables
 
@@ -96,7 +95,7 @@ Add the following to your `.env` file:
 USERSAU_CLIENT_ID=your_client_id_here
 USERSAU_CLIENT_SECRET=your_client_secret_here
 USERSAU_REDIRECT_URI=http://localhost:8000/auth/usersau/callback
-USERSAU_HOST=https://usersau.com
+USERSAU_HOST=https://your-subdomain.users.au
 ```
 
 ### 3. Available Routes
@@ -214,4 +213,4 @@ This project is open-sourced software licensed under the [MIT license](https://o
 
 ## Support
 
-For support, please contact [support@example.com](mailto:support@example.com) or create an issue in the repository. 
+For support, please contact [opensource@users.au](mailto:opensource@users.au) or create an issue in the repository. 
