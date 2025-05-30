@@ -22,6 +22,7 @@ composer install
 # Install Node.js dependencies
 echo "📦 Installing Node.js dependencies..."
 npm install
+npm run build
 
 # Copy environment file
 if [ ! -f .env ]; then
