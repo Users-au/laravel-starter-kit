@@ -22,9 +22,23 @@ A Laravel starter kit with Usersau OAuth integration, built with traditional Bla
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Users-au/laravel-starter-kit.git
    cd laravel-usersau-starter-kit
    ```
+
+### Automatic installation steps:
+
+**Run the installation script**
+   ```bash
+   bash ./install.sh
+   ```
+
+   This script will:
+   - Install PHP dependencies using Composer
+   - Install Node.js dependencies and build assets
+   - Set up the environment file
+
+   > **Note**: Ensure you have `bash` installed on your system to run the script.
 
 ### Manual installation steps:
 
@@ -47,14 +61,7 @@ A Laravel starter kit with Usersau OAuth integration, built with traditional Bla
    php artisan key:generate
    ```
    
-### Configure Usersau OAuth
-   Update your `.env` file with Usersau credentials:
-   ```env
-   USERSAU_CLIENT_ID=your_client_id
-   USERSAU_CLIENT_SECRET=your_client_secret
-   USERSAU_REDIRECT_URI=http://localhost:8000/auth/usersau/callback
-   USERSAU_HOST=https://usersau.com
-   ```
+### Database Setup
 
 1. **Set up the database**
    - Create a new database in MySQL
@@ -98,7 +105,13 @@ USERSAU_REDIRECT_URI=http://localhost:8000/auth/usersau/callback
 USERSAU_HOST=https://your-subdomain.users.au
 ```
 
-### 3. Available Routes
+## Visit
+
+After completing the setup, you can visit your application at `http://localhost:8000` to see the login page.
+
+## Usage
+
+### Available Routes
 
 The following routes are automatically registered by the Usersau package:
 
@@ -107,8 +120,6 @@ The following routes are automatically registered by the Usersau package:
 - `usersau.logout` - Logout from Usersau
 - `usersau.account` - Redirect to Usersau account management
 - Callback route - Handles OAuth callback from Usersau
-
-## Usage
 
 ### Authentication Flow
 

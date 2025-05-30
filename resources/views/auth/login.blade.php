@@ -14,7 +14,7 @@
                     </svg>
                 </div>
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
-                <p class="text-gray-600 text-base">Please sign in with your Usersau account to continue</p>
+                <p class="text-gray-600 text-base">Please sign in to continue</p>
             </div>
 
             <!-- Login Button -->
@@ -26,7 +26,7 @@
                             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
                         </svg>
                     </span>
-                    Sign in with Usersau
+                    Continue
                     <span class="absolute right-0 inset-y-0 flex items-center pr-6">
                         <svg class="h-5 w-5 text-blue-200 group-hover:text-blue-100 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -37,11 +37,11 @@
 
             <!-- Status Messages -->
             @if (session('status'))
-                <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start space-x-3">
-                    <svg class="w-5 h-5 text-green-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start space-x-3">
+                    <svg class="w-5 h-5 text-yellow-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                     </svg>
-                    <div class="text-sm text-green-700">
+                    <div class="text-sm text-yellow-700">
                         {{ session('status') }}
                     </div>
                 </div>
@@ -61,8 +61,7 @@
             <!-- Footer -->
             <div class="mt-8 pt-6 border-t border-gray-100">
                 <p class="text-center text-sm text-gray-500">
-                    Secure authentication powered by 
-                    <span class="font-semibold text-indigo-600">Usersau</span>
+                    Copyright &copy; {{ date('Y') }} {{ config('app.name') }}
                 </p>
             </div>
         </div>
