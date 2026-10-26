@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\UsersauController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,10 +35,14 @@ Route::middleware([
     })->name('dashboard');
 });
 
+// Keep the package's logout URL, but require a CSRF-protected POST. The bound
+// application controller refuses the legacy GET handler without signing out.
+Route::post('/auth/usersau/logout', [UsersauController::class, 'logout']);
+
 // Usersau OAuth routes are automatically registered by the users-au/laravel-client package
 // Available routes:
 // - usersau.login (GET /auth/usersau/redirect)
-// - usersau.register (GET /auth/usersau/register)  
-// - usersau.logout (GET /auth/usersau/logout)
+// - usersau.register (GET /auth/usersau/register)
+// - usersau.logout (URL for the POST form; GET returns 405)
 // - usersau.account (GET /auth/usersau/account)
-// - Callback route (GET /auth/usersau/callback) 
+// - Callback route (GET /auth/usersau/callback)

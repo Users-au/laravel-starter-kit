@@ -6,7 +6,7 @@
 
 [Quick start](#installation) · [OAuth setup](#usersau-oauth-setup) · [Screenshots](#usersau-in-action) · [Users.au](https://www.users.au)
 
-[![Laravel](https://img.shields.io/badge/Laravel-10-FF2D20?style=flat-square&logo=laravel&logoColor=white)](composer.json) [![PHP](https://img.shields.io/badge/PHP-8.1%2B-777BB4?style=flat-square&logo=php&logoColor=white)](#requirements) [![MIT license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](https://opensource.org/licenses/MIT) [![Issues](https://img.shields.io/github/issues/Users-au/laravel-starter-kit?style=flat-square)](https://github.com/Users-au/laravel-starter-kit/issues) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/Users-au/laravel-starter-kit/pulls)
+[![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=flat-square&logo=laravel&logoColor=white)](composer.json) [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=flat-square&logo=php&logoColor=white)](#requirements) [![MIT license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](https://opensource.org/licenses/MIT) [![Issues](https://img.shields.io/github/issues/Users-au/laravel-starter-kit?style=flat-square)](https://github.com/Users-au/laravel-starter-kit/issues) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/Users-au/laravel-starter-kit/pulls)
 
 </div>
 
@@ -16,7 +16,7 @@ experience.
 
 | 🧩 Laravel application | 🎨 Blade interface | 🔐 Users.au integration |
 | --- | --- | --- |
-| Laravel 10, Sanctum and local user records. | Tailwind CSS and Alpine.js components. | Login, registration, account management and coordinated logout. |
+| Laravel 12, Sanctum and local user records. | Tailwind CSS and Alpine.js components. | Login, registration, account management and coordinated logout. |
 
 > [!TIP]
 > Adding authentication to an existing Laravel app? Use the
@@ -46,12 +46,61 @@ through OAuth. These official product screenshots show the hosted experience.
 
 [Explore Users.au](https://www.users.au) · [Create a project](https://my.users.au) · [Image sources](docs/images/README.md)
 
+## Security upgrades and verification
+
+This starter targets Laravel 12 and Sanctum 4. Laravel 10 and 11 have reached
+end of security support; see the [official support policy](https://laravel.com/docs/12.x/releases#support-policy).
+The classic Laravel application layout is retained; you do not need to rewrite
+`bootstrap/app.php` when upgrading an application derived from this starter.
+
+For an existing app, back up its database and `.env`, preserve `APP_KEY`, and
+review the [Laravel 11](https://laravel.com/docs/11.x/upgrade) and
+[Laravel 12](https://laravel.com/docs/12.x/upgrade) upgrade guides before applying
+these changes. Install the committed `composer.lock` and `package-lock.json`,
+then run `php artisan migrate` against the intended database. The starter
+already includes the personal access token migration required by Sanctum.
+Never run `migrate:fresh` against an existing application's data.
+
+`App\Http\Controllers\UsersauController` supplies the application's callback,
+account and logout handlers through a container binding, while the published
+Users.au client continues to register its routes and login/registration entry
+points. This avoids resolving Laravel's auth facade as a container service,
+which conflicts with the Sanctum guard. Successful callbacks validate OAuth
+state, regenerate the session, and keep tokens out of browser responses. Logout
+requires a CSRF-protected POST, invalidates the local session and rotates its
+CSRF token before redirecting to the identity service. The buttons submit
+directly without a confirmation screen; the legacy GET logout URL returns 405. OAuth failures return a generic message on the login page.
+
+Run the same checks as CI:
+
+```bash
+composer validate --strict
+composer check-platform-reqs
+composer audit --locked
+npm ci
+npm audit
+npm run build
+composer test
+```
+
+The integration suite uses SQLite and a fake OAuth HTTP transport with the real
+Socialite provider; it needs no live credentials. CI runs on PHP 8.2, 8.4 and 8.5,
+builds the production assets, and checks configuration, route and view caching.
+Weekly audits and Dependabot updates help detect new advisories.
+
+Tailwind 3's dependency chain still selects older `postcss-selector-parser`
+versions. The npm override selects patched `^7.1.7` for that chain, with the
+existing forms/typography plugins verified by the production build. Recheck
+this override when those packages adopt a patched parser themselves. Do not
+suppress advisories or disable Composer's security blocking to install an
+outdated dependency tree.
+
 ## Requirements
 
-- PHP 8.1 or higher
-- Composer
-- Node.js & NPM
-- MySQL/PostgreSQL database
+- PHP 8.2–8.5
+- Composer 2.9 or later
+- Node.js 22.23.4+ or 24.22.1+ within those LTS majors, with npm (`nvm use`)
+- MySQL/PostgreSQL database (SQLite is used by the integration tests)
 
 ## Installation
 
@@ -68,26 +117,29 @@ through OAuth. These official product screenshots show the hosted experience.
    bash ./install.sh
    ```
 
-   Use the script for a fresh checkout. For an existing application, follow the
-   manual steps and preserve its environment file and application key.
+   The script creates `.env` only if missing, installs the committed lockfiles,
+   and preserves an existing application key. It stops if installation or the
+   asset build fails. Back up an existing application before upgrading.
 
    This script will:
    - Install PHP dependencies using Composer
    - Install Node.js dependencies and build assets
-   - Set up the environment file
+   - Set up `.env` from `.env.example` and generate a key only when missing
 
    > **Note**: Ensure you have `bash` installed on your system to run the script.
 
 ### Manual installation steps:
 
-1. **Install PHP dependencies**
+1. **Set up the environment and install PHP dependencies**
    ```bash
+   test -f .env || cp .env.example .env
    composer install
    ```
 
 1. **Install Node.js dependencies**
    ```bash
-   npm install
+   nvm use
+   npm ci
    npm run build
    # or for development
    npm run dev
@@ -95,8 +147,7 @@ through OAuth. These official product screenshots show the hosted experience.
    
 1. **Environment setup**
    ```bash
-   test -f .env || cp env.example .env
-   # Generate a key once for a new app; preserve an existing APP_KEY.
+   # Only for a NEW application with an empty APP_KEY. Never rotate an existing key.
    php artisan key:generate
    ```
    
@@ -161,7 +212,7 @@ The following routes are automatically registered by the Usersau package:
 
 - `usersau.login` - Redirect to Usersau for authentication
 - `usersau.register` - Redirect to Usersau for registration
-- `usersau.logout` - Logout from Usersau
+- `usersau.logout` - URL for a CSRF-protected POST logout form (GET returns 405)
 - `usersau.account` - Redirect to Usersau account management
 - Callback route - Handles OAuth callback from Usersau
 
@@ -249,7 +300,7 @@ laravel-starter-kit/
 
 ## Technology Stack
 
-- **Backend**: Laravel 10, Laravel Sanctum
+- **Backend**: Laravel 12, Laravel Sanctum
 - **Frontend**: Blade Templates, Tailwind CSS, Alpine.js
 - **Authentication**: Usersau OAuth 2.0
 - **Build Tools**: Vite
