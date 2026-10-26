@@ -16,7 +16,7 @@
         "guzzlehttp/guzzle": "^7.15.2",
         "laravel/framework": "^12.60",
         "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.8",
+        "laravel/tinker": "^3.0",
         "socialiteproviders/manager": "^4.3",
         "users-au/laravel-client": "^1.2.1"
     },
