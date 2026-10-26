@@ -13,12 +13,12 @@
         "@tailwindcss/forms": "^0.5.11",
         "@tailwindcss/typography": "^0.5.20",
         "alpinejs": "^3.17.5",
-        "autoprefixer": "^10.6.1",
         "axios": "^1.20.0",
         "laravel-vite-plugin": "^3.2.0",
         "postcss": "^8.5.31",
         "tailwindcss": "^4.3.3",
-        "vite": "^8.3.5"
+        "vite": "^8.3.5",
+        "@tailwindcss/vite": "^4.3.3"
     },
     "engines": {
         "node": "^22.23.4 || ^24.22.1"
