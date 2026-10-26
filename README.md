@@ -88,12 +88,13 @@ Socialite provider; it needs no live credentials. CI runs on PHP 8.2, 8.4 and 8.
 builds the production assets, and checks configuration, route and view caching.
 Weekly audits and Dependabot updates help detect new advisories.
 
-Tailwind 3's dependency chain still selects older `postcss-selector-parser`
-versions. The npm override selects patched `^7.1.7` for that chain, with the
-existing forms/typography plugins verified by the production build. Recheck
-this override when those packages adopt a patched parser themselves. Do not
-suppress advisories or disable Composer's security blocking to install an
-outdated dependency tree.
+Tailwind 4 is integrated through `@tailwindcss/vite`. The CSS entry explicitly
+loads the JavaScript theme/plugins and Laravel pagination templates. Use its
+[modern browser baseline](https://tailwindcss.com/docs/upgrade-guide#browser-requirements)
+(Safari 16.4+, Chrome 111+, Firefox 128+). The forms/typography plugins still
+select an older selector parser, so the npm override keeps that dependency on
+patched `^7.1.7`; recheck it when those plugins update. Do not suppress audit
+findings or disable Composer's security blocking.
 
 ## Requirements
 
