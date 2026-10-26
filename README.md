@@ -1,15 +1,50 @@
-# Laravel Usersau Starter Kit (Blade Templates)
+<div align="center">
 
-A Laravel starter kit with Usersau OAuth integration, built with traditional Blade templates and Tailwind CSS.
+# Users.au Laravel Starter Kit
 
-## Features
+**A Laravel + Blade starting point for hosted authentication.**
 
-- 🔐 **Usersau OAuth Authentication** - Complete OAuth integration with Usersau
-- 🎨 **Modern UI** - Built with Tailwind CSS and Alpine.js
-- 📄 **Blade Templates** - Traditional server-side rendering with Laravel's Blade engine
-- 🛡️ **Laravel Sanctum** - API authentication support
-- 📱 **Responsive Design** - Mobile-first responsive design
-- ⚡ **Alpine.js** - Lightweight JavaScript framework for interactive components
+[Quick start](#installation) · [OAuth setup](#usersau-oauth-setup) · [Screenshots](#usersau-in-action) · [Users.au](https://www.users.au)
+
+[![Laravel](https://img.shields.io/badge/Laravel-10-FF2D20?style=flat-square&logo=laravel&logoColor=white)](composer.json) [![PHP](https://img.shields.io/badge/PHP-8.1%2B-777BB4?style=flat-square&logo=php&logoColor=white)](#requirements) [![MIT license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](https://opensource.org/licenses/MIT) [![Issues](https://img.shields.io/github/issues/Users-au/laravel-starter-kit?style=flat-square)](https://github.com/Users-au/laravel-starter-kit/issues) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/Users-au/laravel-starter-kit/pulls)
+
+</div>
+
+Start a Laravel application with Users.au OAuth, a Blade interface and a
+protected dashboard. Customize the product while Users.au hosts the sign-in
+experience.
+
+| 🧩 Laravel application | 🎨 Blade interface | 🔐 Users.au integration |
+| --- | --- | --- |
+| Laravel 10, Sanctum and local user records. | Tailwind CSS and Alpine.js components. | Login, registration, account management and coordinated logout. |
+
+> [!TIP]
+> Adding authentication to an existing Laravel app? Use the
+> [Laravel client](https://github.com/Users-au/laravel-client). Prefer React and
+> Next.js? Explore the [Next.js starter](https://github.com/Users-au/nextjs-starter-kit).
+
+## Users.au in action
+
+Users.au hosts the authentication experience on your identity domain. Enable the
+sign-in methods available to your project and connect them to your application
+through OAuth. These official product screenshots show the hosted experience.
+
+<table>
+  <tr><th>🔑 Branded sign-in & social providers</th><th>🛡️ Multi-factor authentication</th></tr>
+  <tr>
+    <td width="50%"><a href="docs/images/usersau-social.png"><img src="docs/images/usersau-social.png" alt="Users.au branded sign-in with Google, Facebook and GitHub options" width="440"></a></td>
+    <td width="50%"><a href="docs/images/usersau-mfa.png"><img src="docs/images/usersau-mfa.png" alt="Users.au authenticator-code challenge with recovery-code option" width="440"></a></td>
+  </tr>
+</table>
+
+<details>
+<summary><strong>👆 Preview the passkey experience</strong></summary>
+
+![Users.au passkey sign-in with a Touch ID prompt](docs/images/usersau-passkey.png)
+
+</details>
+
+[Explore Users.au](https://www.users.au) · [Create a project](https://my.users.au) · [Image sources](docs/images/README.md)
 
 ## Requirements
 
@@ -23,7 +58,7 @@ A Laravel starter kit with Usersau OAuth integration, built with traditional Bla
 1. **Clone the repository**
    ```bash
    git clone https://github.com/Users-au/laravel-starter-kit.git
-   cd laravel-usersau-starter-kit
+   cd laravel-starter-kit
    ```
 
 ### Automatic installation steps:
@@ -32,6 +67,9 @@ A Laravel starter kit with Usersau OAuth integration, built with traditional Bla
    ```bash
    bash ./install.sh
    ```
+
+   Use the script for a fresh checkout. For an existing application, follow the
+   manual steps and preserve its environment file and application key.
 
    This script will:
    - Install PHP dependencies using Composer
@@ -57,7 +95,8 @@ A Laravel starter kit with Usersau OAuth integration, built with traditional Bla
    
 1. **Environment setup**
    ```bash
-   cp env.example .env
+   test -f .env || cp env.example .env
+   # Generate a key once for a new app; preserve an existing APP_KEY.
    php artisan key:generate
    ```
    
@@ -104,6 +143,11 @@ USERSAU_CLIENT_SECRET=your_client_secret_here
 USERSAU_REDIRECT_URI=http://localhost:8000/auth/usersau/callback
 USERSAU_HOST=https://your-subdomain.users.au
 ```
+
+`USERSAU_HOST` is the identity service origin; `USERSAU_REDIRECT_URI` is the
+callback on your application. This starter uses the Laravel client package;
+check its [scope requirements](https://github.com/Users-au/laravel-client#configuration)
+against your OAuth registration.
 
 ## Visit
 
@@ -210,6 +254,16 @@ laravel-starter-kit/
 - **Authentication**: Usersau OAuth 2.0
 - **Build Tools**: Vite
 
+## Choose your integration
+
+| Project | Use it when you want to… |
+| --- | --- |
+| [Next.js starter](https://github.com/Users-au/nextjs-starter-kit) | Start a Next.js app with server-managed OAuth sessions and a protected dashboard. |
+| [**Laravel starter — this repo**](https://github.com/Users-au/laravel-starter-kit) | Start a Laravel app with Blade templates and Users.au integration. |
+| [Laravel client](https://github.com/Users-au/laravel-client) | Add local user synchronization and authentication routes to a Laravel app. |
+| [Socialite provider](https://github.com/Users-au/socialite-provider) | Connect an existing Laravel Socialite authentication flow to Users.au. |
+| [Frontend client](https://github.com/Users-au/frontend-client) | Use public-client OAuth with PKCE in JavaScript, Vue or React. |
+
 ## Contributing
 
 1. Fork the repository
@@ -224,4 +278,4 @@ This project is open-sourced software licensed under the [MIT license](https://o
 
 ## Support
 
-For support, please contact [opensource@users.au](mailto:opensource@users.au) or create an issue in the repository. 
+For support, please contact [opensource@users.au](mailto:opensource@users.au) or create an issue in the repository.
