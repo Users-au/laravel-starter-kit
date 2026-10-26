@@ -60,6 +60,10 @@ class UsersauController extends AuthController
 
     public function logout(): RedirectResponse
     {
+        // GET links must not mutate authentication; the web middleware checks
+        // the CSRF token on the application's POST logout route.
+        abort_unless(request()->isMethod('post'), 405);
+
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();

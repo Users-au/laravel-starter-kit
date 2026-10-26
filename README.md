@@ -67,8 +67,9 @@ Users.au client continues to register its routes and login/registration entry
 points. This avoids resolving Laravel's auth facade as a container service,
 which conflicts with the Sanctum guard. Successful callbacks validate OAuth
 state, regenerate the session, and keep tokens out of browser responses. Logout
-invalidates the local session and rotates its CSRF token before redirecting to
-the identity service. OAuth failures return a generic message on the login page.
+requires a CSRF-protected POST, invalidates the local session and rotates its
+CSRF token before redirecting to the identity service. The buttons submit
+directly without a confirmation screen; the legacy GET logout URL returns 405. OAuth failures return a generic message on the login page.
 
 Run the same checks as CI:
 
@@ -211,7 +212,7 @@ The following routes are automatically registered by the Usersau package:
 
 - `usersau.login` - Redirect to Usersau for authentication
 - `usersau.register` - Redirect to Usersau for registration
-- `usersau.logout` - Logout from Usersau
+- `usersau.logout` - URL for a CSRF-protected POST logout form (GET returns 405)
 - `usersau.account` - Redirect to Usersau account management
 - Callback route - Handles OAuth callback from Usersau
 

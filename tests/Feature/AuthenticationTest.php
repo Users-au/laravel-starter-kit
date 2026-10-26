@@ -119,8 +119,14 @@ class AuthenticationTest extends TestCase
         $this->assertSame('http://localhost/auth/usersau/callback', $tokenFields['redirect_uri']);
         $this->assertSame('Bearer test-access-token', $history[1]['request']->getHeaderLine('Authorization'));
 
-        $this->get('/dashboard')->assertOk()->assertSee('Example User')
+        $dashboard = $this->get('/dashboard')->assertOk()->assertSee('Example User')
             ->assertDontSee('test-access-token')->assertDontSee('test-refresh-token');
+        $document = new \DOMDocument;
+        @$document->loadHTML($dashboard->getContent());
+        $xpath = new \DOMXPath($document);
+        $logoutUrl = route('usersau.logout');
+        $this->assertSame(0, $xpath->query('//a[@href="'.$logoutUrl.'"]')->length);
+        $this->assertSame(3, $xpath->query('//form[@method="POST" and @action="'.$logoutUrl.'"][input[@name="_token"]]')->length);
         // Hydrate authentication from the session, as a new HTTP request does.
         $this->app['auth']->forgetGuards();
         $this->getJson('/api/user')->assertOk()->assertJsonPath('email', 'user@example.test')
@@ -152,12 +158,34 @@ class AuthenticationTest extends TestCase
     {
         $this->withSession(['private-data' => 'must-be-cleared', '_token' => 'old-csrf-token']);
         $previousSessionId = session()->getId();
-        $this->actingAs(User::factory()->create())->get('/auth/usersau/logout')
+        $this->actingAs(User::factory()->create())->post('/auth/usersau/logout')
             ->assertRedirect('https://identity.example.test/logout?continue=http%3A%2F%2Flocalhost')
             ->assertSessionMissing('private-data');
 
         $this->assertGuest();
         $this->assertNotSame($previousSessionId, session()->getId());
         $this->assertNotSame('old-csrf-token', session()->token());
+    }
+
+    public function test_get_logout_cannot_sign_out_the_user(): void
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user)->get('/auth/usersau/logout')->assertStatus(405);
+        $this->assertAuthenticatedAs($user);
+    }
+
+    public function test_logout_requires_a_valid_csrf_token_in_production(): void
+    {
+        // Laravel bypasses CSRF during tests by default; enable the actual
+        // production middleware path to verify that a forged POST is rejected.
+        $this->app->instance('env', 'production');
+        $user = User::factory()->create();
+        $this->withSession(['_token' => 'expected-csrf-token']);
+        $this->actingAs($user)->post('/auth/usersau/logout')->assertStatus(419);
+        $this->assertAuthenticatedAs($user);
+
+        $this->post('/auth/usersau/logout', ['_token' => 'expected-csrf-token'])
+            ->assertRedirect('https://identity.example.test/logout?continue=http%3A%2F%2Flocalhost');
+        $this->assertGuest();
     }
 }
