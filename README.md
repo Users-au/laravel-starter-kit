@@ -6,7 +6,7 @@
 
 [Quick start](#installation) · [OAuth setup](#usersau-oauth-setup) · [Screenshots](#usersau-in-action) · [Users.au](https://www.users.au)
 
-[![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=flat-square&logo=laravel&logoColor=white)](composer.json) [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=flat-square&logo=php&logoColor=white)](#requirements) [![MIT license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](https://opensource.org/licenses/MIT) [![Issues](https://img.shields.io/github/issues/Users-au/laravel-starter-kit?style=flat-square)](https://github.com/Users-au/laravel-starter-kit/issues) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/Users-au/laravel-starter-kit/pulls)
+[![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=flat-square&logo=laravel&logoColor=white)](composer.json) [![PHP](https://img.shields.io/badge/PHP-8.5.12%2B-777BB4?style=flat-square&logo=php&logoColor=white)](#requirements) [![MIT license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](https://opensource.org/licenses/MIT) [![Issues](https://img.shields.io/github/issues/Users-au/laravel-starter-kit?style=flat-square)](https://github.com/Users-au/laravel-starter-kit/issues) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/Users-au/laravel-starter-kit/pulls)
 
 </div>
 
@@ -84,7 +84,7 @@ composer test
 ```
 
 The integration suite uses SQLite and a fake OAuth HTTP transport with the real
-Socialite provider; it needs no live credentials. CI runs on PHP 8.2, 8.4 and 8.5,
+Socialite provider; it needs no live credentials. CI runs on PHP 8.5.12,
 builds the production assets, and checks configuration, route and view caching.
 Weekly audits and Dependabot updates help detect new advisories.
 
@@ -98,7 +98,7 @@ findings or disable Composer's security blocking.
 
 ## Requirements
 
-- PHP 8.2–8.5
+- PHP ^8.5.12
 - Composer 2.9 or later
 - Node.js 22.23.4+ or 24.22.1+ within those LTS majors, with npm (`nvm use`)
 - MySQL/PostgreSQL database (SQLite is used by the integration tests)
@@ -331,3 +331,7 @@ This project is open-sourced software licensed under the [MIT license](https://o
 ## Support
 
 For support, please contact [opensource@users.au](mailto:opensource@users.au) or create an issue in the repository.
+
+## Account-wide identity preferences
+
+The starter uses SDK 2.1 / Socialite provider 2 on PHP ^8.5.12 and Laravel ^12.70.0. It imports scoped standard claims, applies account locale/theme/timezone and provides a CSRF-protected versioned writeback form. See [identity preferences](docs/identity-preferences.md) for migrations, scopes, conflicts, credential handling and rollout.

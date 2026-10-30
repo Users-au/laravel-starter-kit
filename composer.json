@@ -11,14 +11,18 @@
         "blade"
     ],
     "license": "MIT",
+    "repositories": [
+        {"type": "vcs", "url": "https://github.com/Users-au/laravel-client"},
+        {"type": "vcs", "url": "https://github.com/Users-au/socialite-provider"}
+    ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.5.12",
         "guzzlehttp/guzzle": "^7.15.2",
-        "laravel/framework": "^12.60",
+        "laravel/framework": "^12.70.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^3.0",
         "socialiteproviders/manager": "^4.3",
-        "users-au/laravel-client": "^1.2.1"
+        "users-au/laravel-client": "^2.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -71,7 +75,7 @@
             "php-http/discovery": true
         },
         "platform": {
-            "php": "8.2.0"
+            "php": "8.5.12"
         }
     },
     "minimum-stability": "stable",

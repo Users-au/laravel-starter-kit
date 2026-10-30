@@ -5,7 +5,7 @@
 @section('content')
 <div class="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
-        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 border border-gray-100">
             <!-- Header -->
             <div class="text-center mb-8">
                 <div class="mx-auto h-16 w-16 bg-linear-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mb-4">
@@ -13,8 +13,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                     </svg>
                 </div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
-                <p class="text-gray-600 text-base">Please sign in to continue</p>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Welcome Back</h2>
+                <p class="text-gray-600 dark:text-gray-300 text-base">Please sign in to continue</p>
             </div>
 
             <!-- Login Button -->
@@ -60,7 +60,7 @@
 
             <!-- Footer -->
             <div class="mt-8 pt-6 border-t border-gray-100">
-                <p class="text-center text-sm text-gray-500">
+                <p class="text-center text-sm text-gray-500 dark:text-gray-400">
                     Copyright &copy; {{ date('Y') }} {{ config('app.name') }}
                 </p>
             </div>

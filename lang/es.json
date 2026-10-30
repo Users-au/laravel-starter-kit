@@ -1,0 +1,13 @@
+{
+    "Account preferences": "Preferencias de la cuenta",
+    "Language tag": "Código de idioma",
+    "Timezone": "Zona horaria",
+    "Theme": "Tema",
+    "System": "Sistema",
+    "Light": "Claro",
+    "Dark": "Oscuro",
+    "Save preferences": "Guardar preferencias",
+    "Preferences saved.": "Preferencias guardadas.",
+    "Unable to save preferences. Sign in again or retry.": "No se pudieron guardar. Inicia sesión de nuevo o reinténtalo.",
+    "Preferences are temporarily unavailable. Sign in again or retry.": "Preferencias no disponibles. Inicia sesión de nuevo o reinténtalo."
+}

@@ -133,6 +133,24 @@ class AuthenticationTest extends TestCase
             ->assertJsonMissingPath('usersau_access_token')->assertJsonMissingPath('usersau_refresh_token');
     }
 
+    public function test_standard_userinfo_callback_dispatches_the_profile_and_preference_import(): void
+    {
+        $handler = HandlerStack::create(new MockHandler([
+            new Response(200, ['Content-Type' => 'application/json'], json_encode(['access_token' => 'private-standard-access', 'token_type' => 'Bearer'])),
+            new Response(200, ['Content-Type' => 'application/json'], json_encode([
+                'sub' => 'standard-sub', 'name' => 'Jane', 'email' => 'jane@example.test', 'given_name' => 'Jane',
+                'picture' => 'https://identity.example.test/jane.png',
+                'urn:usersau:preferences' => ['sub' => 'standard-sub', 'locale' => 'zh-CN', 'timezone' => 'Asia/Tokyo', 'theme' => 'dark', 'version' => 4],
+            ])),
+        ]));
+        $this->useProviderHttpClient(new Client(['handler' => $handler]));
+        $this->withSession(['state' => 'valid'])->get('/auth/usersau/callback?state=valid&code=standard')->assertRedirect('/dashboard');
+        $user = User::where('usersau_id', 'standard-sub')->firstOrFail();
+        $this->assertSame('Jane', $user->usersau_profile['given_name']);
+        $this->assertSame(4, $user->interface_preferences['version']);
+        $this->get('/dashboard')->assertOk()->assertSee('账户偏好')->assertSee('Asia/Tokyo')->assertDontSee('private-standard-access');
+    }
+
     public function test_provider_failure_does_not_create_a_session_or_expose_credentials(): void
     {
         $this->useProviderHttpClient(new Client([

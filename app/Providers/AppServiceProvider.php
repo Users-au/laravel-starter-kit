@@ -24,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \Illuminate\Support\Facades\Event::listen(\Usersau\UsersauLaravelClient\Events\UserProfileSynchronized::class, function ($event): void {
+            app(\App\Services\IdentityPreferences::class)->import($event);
+        });
     }
 }

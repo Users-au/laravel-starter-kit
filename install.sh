@@ -8,7 +8,7 @@ echo "==========================================="
 
 # Check if composer is installed
 if ! command -v php &> /dev/null; then
-    echo "❌ PHP is not installed. Please install PHP 8.2 or later first."
+    echo "❌ PHP is not installed. Please install PHP 8.5.12 or later first."
     exit 1
 fi
 

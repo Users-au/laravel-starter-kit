@@ -28,8 +28,11 @@ Route::get('/login', function () {
 
 Route::middleware([
     'auth:sanctum',
+    \App\Http\Middleware\ApplyIdentityPreferences::class,
     'verified',
 ])->group(function () {
+    Route::match(['get', 'patch'], '/account/preferences', \App\Http\Controllers\IdentityPreferencesController::class)->middleware('throttle:60,1')->name('account.preferences');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
