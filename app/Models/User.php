@@ -45,6 +45,8 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'usersau_profile' => 'array',
+        'interface_preferences' => 'array',
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];

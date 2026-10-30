@@ -11,18 +11,24 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    <script>
+        (() => {
+            const theme = {{ Illuminate\Support\Js::from($interfacePreferences['theme'] ?? 'system') }};
+            document.documentElement.classList.toggle('dark', theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches));
+        })();
+    </script>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-gray-100 dark:bg-gray-950">
         @auth
             @include('layouts.navigation')
         @endauth
 
         <!-- Page Heading -->
         @hasSection('header')
-            <header class="bg-white shadow-sm">
+            <header class="bg-white dark:bg-gray-900 shadow-sm">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     @yield('header')
                 </div>

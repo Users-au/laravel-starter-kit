@@ -1,0 +1,13 @@
+{
+    "Account preferences": "アカウント設定",
+    "Language tag": "言語タグ",
+    "Timezone": "タイムゾーン",
+    "Theme": "テーマ",
+    "System": "システム",
+    "Light": "ライト",
+    "Dark": "ダーク",
+    "Save preferences": "設定を保存",
+    "Preferences saved.": "設定を保存しました。",
+    "Unable to save preferences. Sign in again or retry.": "保存できません。再ログインするか、やり直してください。",
+    "Preferences are temporarily unavailable. Sign in again or retry.": "設定を取得できません。再ログインするか、やり直してください。"
+}

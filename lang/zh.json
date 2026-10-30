@@ -1,0 +1,13 @@
+{
+    "Account preferences": "账户偏好",
+    "Language tag": "语言标签",
+    "Timezone": "时区",
+    "Theme": "主题",
+    "System": "跟随系统",
+    "Light": "浅色",
+    "Dark": "深色",
+    "Save preferences": "保存偏好",
+    "Preferences saved.": "偏好已保存。",
+    "Unable to save preferences. Sign in again or retry.": "无法保存偏好。请重新登录或重试。",
+    "Preferences are temporarily unavailable. Sign in again or retry.": "暂时无法读取偏好。请重新登录或重试。"
+}

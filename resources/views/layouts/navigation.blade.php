@@ -1,4 +1,4 @@
-<nav class="bg-white border-b border-gray-100">
+<nav class="bg-white dark:bg-gray-900 border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <span class="text-xl font-semibold text-gray-900">{{ config('app.name', 'Laravel') }}</span>
+                        <span class="text-xl font-semibold text-gray-900 dark:text-gray-100">{{ config('app.name', 'Laravel') }}</span>
                     </a>
                 </div>
 
@@ -14,7 +14,7 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <a href="{{ route('dashboard') }}" 
                        class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out
-                              {{ request()->routeIs('dashboard') ? 'border-indigo-400 text-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                              {{ request()->routeIs('dashboard') ? 'border-indigo-400 text-gray-900 dark:text-gray-100' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 hover:border-gray-300' }}">
                         Dashboard
                     </a>
                 </div>
@@ -25,7 +25,7 @@
                 <div class="ml-3 relative">
                     <div x-data="{ open: false }" class="relative">
                         <button @click="open = !open" 
-                                class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-hidden focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                                class="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 hover:border-gray-300 focus:outline-hidden focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                             <div>{{ Auth::user()->name }}</div>
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -43,7 +43,7 @@
                              x-transition:leave-start="transform opacity-100 scale-100"
                              x-transition:leave-end="transform opacity-0 scale-95"
                              class="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top-right right-0">
-                            <div class="rounded-md ring-1 ring-black/5 py-1 bg-white">
+                            <div class="rounded-md ring-1 ring-black/5 py-1 bg-white dark:bg-gray-900">
                                 <a href="{{ route('usersau.account') }}" 
                                    class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 transition duration-150 ease-in-out">
                                     Profile
@@ -81,26 +81,26 @@
         <div class="pt-2 pb-3 space-y-1">
             <a href="{{ route('dashboard') }}" 
                class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out
-                      {{ request()->routeIs('dashboard') ? 'border-indigo-400 text-indigo-700 bg-indigo-50' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300' }}">
+                      {{ request()->routeIs('dashboard') ? 'border-indigo-400 text-indigo-700 bg-indigo-50' : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300' }}">
                 Dashboard
             </a>
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-700">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-base text-gray-800 dark:text-gray-100">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-sm text-gray-500 dark:text-gray-400">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
                 <a href="{{ route('usersau.account') }}" 
-                   class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition duration-150 ease-in-out">
+                   class="block px-4 py-2 text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-800 hover:bg-gray-100 transition duration-150 ease-in-out">
                     Profile
                 </a>
                 <form method="POST" action="{{ route('usersau.logout') }}">
                                     @csrf
-                                    <button type="submit" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition duration-150 ease-in-out">
+                                    <button type="submit" class="block px-4 py-2 text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-800 hover:bg-gray-100 transition duration-150 ease-in-out">
                     Log Out
                 </button>
                                 </form>

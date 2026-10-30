@@ -7,7 +7,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
+use Usersau\UsersauLaravelClient\Events\UserProfileSynchronized;
 use Usersau\UsersauLaravelClient\Http\Controllers\AuthController;
+use Usersau\UsersauLaravelClient\Identity\UserProfile;
 
 /**
  * Keep the package's OAuth routes, login and registration entry points while
@@ -32,6 +34,14 @@ class UsersauController extends AuthController
                 ->with('error', 'Unable to sign in. Please try again.');
         }
 
+        $claims = $identity->getRaw();
+        $claims['sub'] ??= (string) $identity->getId();
+        $profile = new UserProfile($claims);
+        abort_unless($profile->subject() === (string) $identity->getId(), 502);
+        $issuer = rtrim((string) config('services.usersau.host'), '/');
+        $existing = app(config('usersau.user_model'))->where('usersau_id', $profile->subject())->first();
+        abort_if($existing?->usersau_issuer && $existing->usersau_issuer !== $issuer, 502);
+
         $attributes = [
             'name' => $identity->getName(),
             'email' => $identity->getEmail(),
@@ -47,6 +57,8 @@ class UsersauController extends AuthController
             ['usersau_id' => $identity->getId()],
             $attributes
         );
+
+        event(new UserProfileSynchronized($user, $profile, $issuer));
 
         Auth::login($user);
         request()->session()->regenerate();
