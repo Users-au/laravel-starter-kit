@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18dfb5841887a300309029f0d7dffed3",
+    "content-hash": "d81538066b9fc7b2b4765c44bea5d141",
     "packages": [
         {
             "name": "brick/math",
@@ -6585,16 +6585,16 @@
         },
         {
             "name": "users-au/laravel-client",
-            "version": "v2.1.0",
+            "version": "dev-codex/par-account-context",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Users-au/laravel-client.git",
-                "reference": "2e13efc734d9cd53bcceb6e5395a1e33593e1aea"
+                "reference": "eb082b31a5cf257c8a10477700801c95a30a054b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Users-au/laravel-client/zipball/2e13efc734d9cd53bcceb6e5395a1e33593e1aea",
-                "reference": "2e13efc734d9cd53bcceb6e5395a1e33593e1aea",
+                "url": "https://api.github.com/repos/Users-au/laravel-client/zipball/eb082b31a5cf257c8a10477700801c95a30a054b",
+                "reference": "eb082b31a5cf257c8a10477700801c95a30a054b",
                 "shasum": ""
             },
             "require": {
@@ -6616,7 +6616,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.0-dev"
+                    "dev-main": "3.0-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -6669,10 +6669,10 @@
             "description": "Users.au Laravel Client",
             "homepage": "https://github.com/users-au/laravel-client",
             "support": {
-                "source": "https://github.com/Users-au/laravel-client/tree/v2.1.0",
+                "source": "https://github.com/Users-au/laravel-client/tree/codex/par-account-context",
                 "issues": "https://github.com/Users-au/laravel-client/issues"
             },
-            "time": "2026-10-30T12:04:55+00:00"
+            "time": "2026-11-08T23:04:27+00:00"
         },
         {
             "name": "users-au/socialite-provider",
@@ -9576,9 +9576,18 @@
             "time": "2025-11-17T20:03:58+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "users-au/laravel-client",
+            "version": "dev-codex/par-account-context",
+            "alias": "3.0.0",
+            "alias_normalized": "3.0.0.0"
+        }
+    ],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "users-au/laravel-client": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

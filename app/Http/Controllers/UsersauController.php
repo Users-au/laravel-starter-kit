@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
+use SocialiteProviders\Usersau\Provider;
 use Usersau\UsersauLaravelClient\Events\UserProfileSynchronized;
 use Usersau\UsersauLaravelClient\Http\Controllers\AuthController;
 use Usersau\UsersauLaravelClient\Identity\UserProfile;
@@ -23,7 +24,12 @@ class UsersauController extends AuthController
         try {
             // The stateful provider validates and consumes OAuth state before
             // exchanging the code. Do not use stateless() for browser sign-in.
-            $identity = Socialite::driver('usersau')->user();
+            /** @var Provider $provider */
+            $provider = Socialite::driver('usersau');
+            if (config('usersau.par_enabled', true)) {
+                $provider->enablePKCE();
+            }
+            $identity = $provider->user();
         } catch (InvalidStateException|GuzzleException $exception) {
             return redirect()->route('login')
                 ->with('error', 'Unable to sign in. Please try again.');
@@ -76,21 +82,11 @@ class UsersauController extends AuthController
         // the CSRF token on the application's POST logout route.
         abort_unless(request()->isMethod('post'), 405);
 
-        Auth::logout();
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
-
-        return redirect()->away(rtrim(config('services.usersau.host'), '/').'/logout?'.http_build_query([
-            'continue' => url(config('usersau.after_logout_url')),
-        ]));
+        return parent::logout();
     }
 
     public function account(): RedirectResponse
     {
-        if (! Auth::check()) {
-            return redirect()->route('usersau.login');
-        }
-
-        return redirect()->away(rtrim(config('services.usersau.host'), '/').'/account');
+        return parent::account();
     }
 }

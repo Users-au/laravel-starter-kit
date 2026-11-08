@@ -335,3 +335,11 @@ For support, please contact [opensource@users.au](mailto:opensource@users.au) or
 ## Account-wide identity preferences
 
 The starter uses SDK 2.1 / Socialite provider 2 on PHP ^8.5.12 and Laravel ^12.70.0. It imports scoped standard claims, applies account locale/theme/timezone and provides a CSRF-protected versioned writeback form. See [identity preferences](docs/identity-preferences.md) for migrations, scopes, conflicts, credential handling and rollout.
+
+## PAR, branding and return navigation
+
+Login uses confidential server-to-server PAR with S256 PKCE. Application configuration supplies branding and the trusted Home URL. Account-management links point to the application's own account entry, which creates a fresh `/oauth/context` request before opening Auth Profile. The Profile Logo and return action lead to that Home URL. Sign-out creates its own context with a trusted logout destination.
+
+Upgrade Auth and run tenant migrations first; enable PAR for existing OAuth applications (new confidential authorization-code applications enable it by default). Configure the tenant's default sign-in return URL as this application's `/auth/usersau/redirect` entry for users who open Auth login directly. This entry starts authorization; `/auth/usersau/callback` completes it and must not be used as a Logo link.
+
+Fixed tenant return addresses remain fallbacks when there is no application context. Explicit account management stays in Profile after authentication. Each context is single-use at entry, browser-bound and valid for one hour after entry; a new account visit gets a new context. Secrets and branding sources belong on the backend. This branch requires the matching updated SDK and is not a production deployment.
