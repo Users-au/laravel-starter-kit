@@ -12,8 +12,14 @@
     ],
     "license": "MIT",
     "repositories": [
-        {"type": "vcs", "url": "https://github.com/Users-au/laravel-client"},
-        {"type": "vcs", "url": "https://github.com/Users-au/socialite-provider"}
+        {
+            "type": "vcs",
+            "url": "https://github.com/Users-au/laravel-client"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Users-au/socialite-provider"
+        }
     ],
     "require": {
         "php": "^8.5.12",
@@ -22,7 +28,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^3.0",
         "socialiteproviders/manager": "^4.3",
-        "users-au/laravel-client": "^2.1"
+        "users-au/laravel-client": "dev-codex/par-account-context as 3.0.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

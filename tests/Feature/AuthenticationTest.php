@@ -20,6 +20,7 @@ class AuthenticationTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        config(['usersau.par_enabled' => false]);
 
         config(['services.usersau' => [
             'client_id' => 'test-client',
