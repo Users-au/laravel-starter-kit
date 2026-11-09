@@ -28,7 +28,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^3.0",
         "socialiteproviders/manager": "^4.3",
-        "users-au/laravel-client": "dev-codex/par-account-context as 3.0.0"
+        "users-au/laravel-client": "^3.0.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
