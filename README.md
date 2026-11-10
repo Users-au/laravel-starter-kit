@@ -306,6 +306,28 @@ laravel-starter-kit/
 - **Authentication**: Usersau OAuth 2.0
 - **Build Tools**: Vite
 
+## FAQ
+
+### How do I get started?
+
+Clone the repository, run `bash ./install.sh`, register an OAuth application in the [Users.au console](https://my.users.au) with the redirect URI `http://localhost:8000/auth/usersau/callback`, put the `USERSAU_*` values in `.env`, and open `http://localhost:8000`. Details in [Installation](#installation) and [OAuth setup](#usersau-oauth-setup).
+
+### What are the requirements?
+
+PHP ^8.5.12, Composer 2.9 or later, Node.js 22.23.4+ or 24.22.1+ with npm, and a MySQL or PostgreSQL database (SQLite is used by the integration tests). See [Requirements](#requirements).
+
+### What does the stack include?
+
+Laravel 12 and Laravel Sanctum, Blade templates with Tailwind CSS and Alpine.js, Vite, and Users.au OAuth 2.0 sign-in with a protected dashboard.
+
+### What is the difference between `USERSAU_HOST` and `USERSAU_REDIRECT_URI`?
+
+`USERSAU_HOST` is the origin of the identity service. `USERSAU_REDIRECT_URI` is the callback URL on your own application.
+
+### Can I add Users.au to an existing Laravel application instead?
+
+Yes. Use the [Laravel client](https://github.com/Users-au/laravel-client) package, which this starter kit is built on.
+
 ## Choose your integration
 
 | Project | Use it when you want to… |
